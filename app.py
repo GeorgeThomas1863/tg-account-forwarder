@@ -1,3 +1,13 @@
+"""
+Telegram Channel Forwarder
+==========================
+Forwards messages from a source channel to a destination channel
+using a Telethon userbot. Handles backfill of historical messages
+and live forwarding of new messages, with aggressive rate limit handling.
+"""
+
+
+
 async def main():
     log.info('Starting Telegram Channel Forwarder')
  
