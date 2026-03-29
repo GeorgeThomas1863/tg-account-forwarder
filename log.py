@@ -2,6 +2,7 @@ import logging
 import os
 import json
 from datetime import datetime
+from config import IGNORE_PROGRESS, PROGRESS_FILE, START_FROM_ID
 
 logging.basicConfig(
     level=logging.INFO,

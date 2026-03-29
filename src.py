@@ -1,9 +1,11 @@
 from log import log, load_progress, save_progress
-import os
+from config import (
+    MAX_RETRIES, FLOOD_WAIT_BUFFER,
+    IGNORE_PROGRESS, PROGRESS_FILE,
+    STOP_AT_ID, BACKFILL_LIMIT, FORWARD_DELAY,
+)
 import asyncio
 from telethon import TelegramClient, events
-from telethon.tl.functions.channels import GetParticipantsRequest
-from telethon.tl.types import ChannelParticipantsSearch
 from telethon.errors import (
     FloodWaitError,
     ChatForwardsRestrictedError,
