@@ -17,4 +17,4 @@ IGNORE_PROGRESS = os.getenv('IGNORE_PROGRESS', 'false').lower() in ('true', '1',
 # Rate limiting
 FORWARD_DELAY     = float(os.getenv('FORWARD_DELAY',     '1.5'))
 FLOOD_WAIT_BUFFER = int(os.getenv(  'FLOOD_WAIT_BUFFER', '10'))
-MAX_RETRIES       = int(os.getenv(  'MAX_RETRIES',       '5'))
+MAX_RETRIES       = int(os.getenv(  'MAX_RETRIES',       '3'))

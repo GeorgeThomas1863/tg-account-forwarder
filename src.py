@@ -12,11 +12,16 @@ from telethon.errors import (
     ChatForwardsRestrictedError,
     MessageIdInvalidError
 )
+from telethon.tl.patched import MessageService
 from telethon.tl.types import PeerChannel, PeerChat
 
 
 
 async def forward_with_retry(client, dest, message):
+    if isinstance(message, MessageService):
+        log.debug(f'msg {message.id}: Skipping service message (type {type(message).__name__})')
+        return False
+
     for attempt in range(1, MAX_RETRIES + 1):
         try:
             await client.forward_messages(dest, message)
