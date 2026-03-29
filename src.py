@@ -1,11 +1,12 @@
+import asyncio
+import os
 from log import log, load_progress, save_progress
 from config import (
     MAX_RETRIES, FLOOD_WAIT_BUFFER,
     IGNORE_PROGRESS, PROGRESS_FILE,
     STOP_AT_ID, BACKFILL_LIMIT, FORWARD_DELAY,
 )
-import asyncio
-from telethon import TelegramClient, events
+from telethon import events
 from telethon.errors import (
     FloodWaitError,
     ChatForwardsRestrictedError,
