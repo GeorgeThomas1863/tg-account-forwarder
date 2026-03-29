@@ -12,6 +12,7 @@ from telethon.errors import (
     ChatForwardsRestrictedError,
     MessageIdInvalidError
 )
+from telethon.tl.types import PeerChannel, PeerChat
 
 
 
@@ -152,13 +153,21 @@ def register_live_handler(client, source, dest):
 # ---------------------------------------------------------------------------
  
 async def resolve_channel(client, identifier):
-    # If it looks like a numeric ID, convert it
     try:
         numeric = int(identifier)
-        # Telegram supergroup/channel IDs are negative; the API sometimes
-        # wants just the bare ID without the -100 prefix
-        return await client.get_entity(numeric)
+        str_id = str(identifier)
+        if str_id.startswith('-100'):
+            # Supergroup / broadcast channel — strip the -100 prefix
+            channel_id = int(str_id[4:])
+            peer = PeerChannel(channel_id)
+        elif numeric < 0:
+            # Legacy group chat (negative, but no -100 prefix)
+            peer = PeerChat(abs(numeric))
+        else:
+            # Bare positive channel/supergroup ID
+            peer = PeerChannel(numeric)
+        return await client.get_entity(peer)
     except (ValueError, TypeError):
         pass
-    # Otherwise treat as username
+    # Username or invite link — pass through unchanged
     return await client.get_entity(identifier)
